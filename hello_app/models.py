@@ -1,3 +1,4 @@
+# coding:utf-8
 from __future__ import unicode_literals
 
 from django.db import models
@@ -13,3 +14,6 @@ class TStudentInfo(models.Model):
     class Meta:
         managed = False
         db_table = 't_student_info'
+
+    def __unicode__(self):  # 在Python3中用 __str__ 代替 __unicode__
+        return self.c_name
