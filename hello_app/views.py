@@ -1,6 +1,6 @@
 import json
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from hello_app.models import TStudentInfo
 
 # Create your views here.
@@ -28,13 +28,13 @@ def test_json(request):
     ret_root = {'name' : '', 'score' : 0}
 
     if not request.GET:
-        return HttpResponse(json.dumps(ret_root))
+        return HttpResponse(json.dumps(ret_root), content_type='application/json')
 
     id = request.GET['id']
     rows = TStudentInfo.objects.filter(c_id=id)
     if not rows:
-        return HttpResponse(json.dumps(ret_root))
+        return HttpResponse(json.dumps(ret_root), content_type='application/json')
 
     ret_root['name'] = rows[0].c_name
     ret_root['score'] = rows[0].c_score
-    return HttpResponse(json.dumps(ret_root))
+    return JsonResponse(ret_root)
